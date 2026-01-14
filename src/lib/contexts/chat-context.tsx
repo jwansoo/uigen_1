@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useEffect,
-} from "react";
+import { createContext, useContext, ReactNode, useEffect } from "react";
 import { useChat as useAIChat } from "@ai-sdk/react";
-import { Message } from "ai";
+import type { UIMessage as Message } from "ai";
 import { useFileSystem } from "./file-system-context";
 import { setHasAnonWork } from "@/lib/anon-work-tracker";
 
@@ -33,23 +28,18 @@ export function ChatProvider({
 }: ChatContextProps & { children: ReactNode }) {
   const { fileSystem, handleToolCall } = useFileSystem();
 
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    status,
-  } = useAIChat({
-    api: "/api/chat",
-    initialMessages,
-    body: {
-      files: fileSystem.serialize(),
-      projectId,
-    },
-    onToolCall: ({ toolCall }) => {
-      handleToolCall(toolCall);
-    },
-  });
+  const { messages, input, handleInputChange, handleSubmit, status } =
+    useAIChat({
+      api: "/api/chat",
+      initialMessages,
+      body: {
+        files: fileSystem.serialize(),
+        projectId,
+      },
+      onToolCall: ({ toolCall }) => {
+        handleToolCall(toolCall);
+      },
+    });
 
   // Track anonymous work
   useEffect(() => {

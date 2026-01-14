@@ -247,9 +247,9 @@ test("MessageList applies correct styling for user vs assistant messages", () =>
   expect(userMessage?.className).toContain("bg-blue-600");
   expect(userMessage?.className).toContain("text-white");
 
-  // Assistant messages should have white background
-  expect(assistantMessage?.className).toContain("bg-white");
-  expect(assistantMessage?.className).toContain("text-neutral-900");
+  // Assistant messages should have dark background
+  expect(assistantMessage?.className).toContain("bg-neutral-800");
+  expect(assistantMessage?.className).toContain("text-neutral-100");
 });
 
 test("MessageList handles empty content with parts", () => {
@@ -282,7 +282,7 @@ test("MessageList shows loading for assistant message with empty parts", () => {
   );
 
   // Check that exactly one "Generating..." text appears
-  const loadingText = container.querySelectorAll(".text-neutral-500");
+  const loadingText = container.querySelectorAll(".text-neutral-400");
   const generatingElements = Array.from(loadingText).filter(
     (el) => el.textContent === "Generating..."
   );
